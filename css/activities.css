@@ -1,20 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   text-align: center;
-  margin-top: 30px;
+  margin: 0;
+  padding: 20px;
   font-family: "Courier";
   background-color: #fff5e4;
   color: #ff9494;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 #activityquestion {
   font-size: 50px;
   margin-bottom: 30px;
+  padding: 0 20px;
 }
+
+.activities-selection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .activity-item {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 10px;
-  vertical-align: top;
   color: #ff9494;
+  flex: 0 0 auto;
 }
+
 .activity-item img {
   height: 200px;
   width: 200px;
@@ -22,19 +49,129 @@ body {
   border: 5px solid #ff9494;
   object-fit: cover;
   padding: 10px;
+  transition: transform 0.3s ease;
 }
+
+.activity-item img:hover {
+  transform: scale(1.05);
+}
+
 .activity-item label {
   display: block;
+  margin-top: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
+
+.activity-item input[type="checkbox"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
 .button {
-  padding: 10px 20px;
+  padding: 15px 30px;
   font-size: 18px;
   cursor: pointer;
-  margin: 10px;
+  margin: 30px 10px 20px;
   font-family: "courier";
-  margin-bottom: 20px;
   background-color: #ffe3e1;
   color: #e67373;
   border-radius: 12px;
   border: 2px solid #ffe3e1;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #ff9494;
+  color: #ffe3e1;
+  border-color: #ff9494;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+
+  #activityquestion {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .activities-selection {
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .activity-item {
+    margin: 5px;
+  }
+
+  .activity-item img {
+    height: 150px;
+    width: 150px;
+    border-width: 4px;
+    padding: 8px;
+  }
+
+  .activity-item label {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .button {
+    padding: 12px 24px;
+    font-size: 16px;
+    margin: 20px 10px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  #activityquestion {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .activities-selection {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .activity-item {
+    margin: 5px;
+  }
+
+  .activity-item img {
+    height: 120px;
+    width: 120px;
+    border-width: 3px;
+    padding: 6px;
+  }
+
+  .activity-item label {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  .button {
+    padding: 10px 20px;
+    font-size: 14px;
+    margin: 15px 5px 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .activities-selection {
+    max-width: 1400px;
+  }
+
+  .activity-item img {
+    height: 220px;
+    width: 220px;
+  }
 }
