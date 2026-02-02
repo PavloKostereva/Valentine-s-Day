@@ -6,19 +6,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Be My Valentine</title>
   <link rel="stylesheet" href="css/valentine.css" />
+  <style>
+    .interactive-heart-container {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+      transform: translate(-50%, -50%);
+    }
+
+    .svg-heart {
+      width: 80px;
+      height: 80px;
+      fill: none;
+      stroke: #ff4d6d;
+      stroke-width: 2;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.8));
+      animation: heart-draw 1.2s ease-out forwards;
+    }
+
+    @keyframes heart-draw {
+      0% {
+        stroke-dashoffset: 100;
+        fill: rgba(255, 77, 109, 0);
+        transform: scale(0.5);
+      }
+
+      30% {
+        stroke-dashoffset: 0;
+        fill: rgba(255, 77, 109, 0);
+      }
+
+      60% {
+        fill: rgba(255, 77, 109, 1);
+        transform: scale(1.2);
+      }
+
+      100% {
+        fill: rgba(255, 77, 109, 1);
+        transform: scale(1) translateY(-100px);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div id="valentineQuestion"><b>Will you be my valentine?</b></div>
-  <button class="answerButton" onclick="location.href='thankyou.html'">
-    Yes
-  </button>
-  <button class="answerButton" id="noButton">I no no wanna o(╥﹏╥)o</button>
+  <div id="valentineQuestion"><b>Ти будеш моєю валентинкою?</b></div>
+  <button class="answerButton" id="yesButton">Так</button>
+  <button class="answerButton" id="noButton">Ні</button>
   <br />
   <img src="please.png" height="498px" width="150px" alt="cat asking question" class="responsive" />
 
   <div class="hearts-container"></div>
   <script>
+    let yesClickCount = 0;
+    let noClickCount = 0;
+
     function createHeart() {
       const heart = document.createElement("div");
       heart.innerHTML = "❤️";
@@ -32,8 +77,7 @@
       document.querySelector(".hearts-container").appendChild(heart);
 
       setTimeout(() => {
-        heart.style.transform = `translateY(-110vh) translateX(${(Math.random() - 0.5) * 100
-          }px)`;
+        heart.style.transform = `translateY(-110vh) translateX(${(Math.random() - 0.5) * 100}px)`;
         heart.style.opacity = "0";
       }, 100);
 
@@ -41,17 +85,46 @@
     }
     setInterval(createHeart, 300);
 
-    document
-      .getElementById("noButton")
-      .addEventListener("click", function () {
-        var yesButton = document.querySelector(
-          'button[onclick*="thankyou.html"]'
-        );
-        var currentFontSize = parseInt(
-          window.getComputedStyle(yesButton).fontSize
-        );
-        yesButton.style.fontSize = currentFontSize + 10 + "px"; // Increase font size by 5px
-      });
+    // Interactive drawn hearts with Cupid's arrow
+    document.addEventListener("click", function (e) {
+      if (e.target.tagName === 'BUTTON') return;
+
+      const container = document.createElement("div");
+      container.className = "interactive-heart-container";
+      container.style.left = e.clientX + "px";
+      container.style.top = e.clientY + "px";
+
+      // SVG Heart
+      container.innerHTML = `
+        <svg class="svg-heart" viewBox="0 0 32 32">
+          <path d="M16 28.5L14.1 26.7C7.1 20.4 2.5 16.2 2.5 11C2.5 6.6 5.9 3.2 10.3 3.2C12.8 3.2 15.1 4.3 16.7 6.1C18.3 4.3 20.7 3.2 23.2 3.2C27.6 3.2 31 6.6 31 11C31 16.2 26.4 20.4 19.4 26.7L16 28.5Z" />
+        </svg>
+      `;
+
+      document.body.appendChild(container);
+      setTimeout(() => container.remove(), 1000);
+    });
+
+    document.getElementById("yesButton").addEventListener("click", function () {
+      yesClickCount++;
+      if (yesClickCount === 1) {
+        alert("Дякую! ❤️");
+        location.href = 'thankyou.html';
+      } else {
+        location.href = 'thankyou.html';
+      }
+    });
+
+    document.getElementById("noButton").addEventListener("click", function () {
+      noClickCount++;
+      if (noClickCount === 1) {
+        alert("Ну Мар'янааа 😠");
+      } else {
+        var yesButton = document.getElementById("yesButton");
+        var currentFontSize = parseInt(window.getComputedStyle(yesButton).fontSize);
+        yesButton.style.fontSize = (currentFontSize + 15) + "px";
+      }
+    });
   </script>
 </body>
 

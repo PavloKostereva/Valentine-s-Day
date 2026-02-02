@@ -32,11 +32,54 @@
       border: 2px solid #ff9494;
       box-shadow: 1px 1px 2px #ffe3e1;
     }
+
+    .interactive-heart-container {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1000;
+      transform: translate(-50%, -50%);
+    }
+
+    .svg-heart {
+      width: 80px;
+      height: 80px;
+      fill: none;
+      stroke: #ff4d6d;
+      stroke-width: 2;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.8));
+      animation: heart-draw 1.2s ease-out forwards;
+    }
+
+    @keyframes heart-draw {
+      0% {
+        stroke-dashoffset: 100;
+        fill: rgba(255, 77, 109, 0);
+        transform: scale(0.5);
+      }
+
+      30% {
+        stroke-dashoffset: 0;
+        fill: rgba(255, 77, 109, 0);
+      }
+
+      60% {
+        fill: rgba(255, 77, 109, 1);
+        transform: scale(1.2);
+      }
+
+      100% {
+        fill: rgba(255, 77, 109, 1);
+        transform: scale(1) translateY(-100px);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div id="thankyou"><b>Thank you for being my girlfriend</b></div>
+  <div id="thankyou"><b>Дякую тобі, що ти моя дівчина</b></div>
   <div class="flower">
     <div class="f-wrapper">
       <div class="flower__line">
@@ -91,6 +134,26 @@
   <button class="button" onclick="location.href='flowers-animation.html'">
     Next...
   </button>
+
+  <script>
+    document.addEventListener("click", function (e) {
+      if (e.target.tagName === 'BUTTON') return;
+
+      const container = document.createElement("div");
+      container.className = "interactive-heart-container";
+      container.style.left = e.clientX + "px";
+      container.style.top = e.clientY + "px";
+
+      container.innerHTML = `
+        <svg class="svg-heart" viewBox="0 0 32 32">
+          <path d="M16 28.5L14.1 26.7C7.1 20.4 2.5 16.2 2.5 11C2.5 6.6 5.9 3.2 10.3 3.2C12.8 3.2 15.1 4.3 16.7 6.1C18.3 4.3 20.7 3.2 23.2 3.2C27.6 3.2 31 6.6 31 11C31 16.2 26.4 20.4 19.4 26.7L16 28.5Z" />
+        </svg>
+      `;
+
+      document.body.appendChild(container);
+      setTimeout(() => container.remove(), 1200);
+    });
+  </script>
 </body>
 
 </html>

@@ -22,23 +22,30 @@ body {
 
 .night {
   position: fixed;
-  left: 50%;
+  left: 0;
   top: 0;
-  transform: translateX(-50%);
   width: 100%;
   height: 100%;
-  filter: blur(0.1vmin);
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    /* Darker overlay */
-    url('../activities/park.jpeg');
-  /* Background image */
-  background-size: cover;
-  /* Cover the entire page */
-  background-position: center;
-  /* Center the image */
-  background-repeat: no-repeat;
-  /* Prevent tiling */
+  z-index: -1;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  background-image:
+    radial-gradient(circle at 50% 100%, rgba(255, 154, 158, 0.3), transparent 70%),
+    radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+/* Subtle twinkling stars effect for the background */
+.night::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(white, rgba(255, 255, 255, 0.2) 2px, transparent 4px);
+  background-size: 200px 200px;
+  background-position: 0 0, 100px 100px;
+  opacity: 0.1;
+  z-index: -1;
 }
 
 .flowers {
