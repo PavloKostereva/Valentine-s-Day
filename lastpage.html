@@ -7,6 +7,49 @@
   <title>Document</title>
   <link rel="stylesheet" href="css/flower.css" />
   <style>
+    :root {
+      --bg-color: #fff5e4;
+      --text-color: #ff9494;
+      --btn-bg: #ffe3e1;
+      --btn-text: #e67373;
+      --btn-shadow: #ff9494;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #2d1b2e;
+      --text-color: #ffb7c5;
+      --btn-bg: #4a2c4a;
+      --btn-text: #ff8fa3;
+      --btn-shadow: #1a0f1a;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      line-height: 1;
+      border-radius: 50%;
+      border: none;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      cursor: pointer;
+      font-size: 20px;
+      z-index: 2000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    #theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
     .button {
       padding: 10px 20px;
       font-size: 18px;
@@ -79,6 +122,7 @@
 </head>
 
 <body>
+  <button id="theme-toggle">🌓</button>
   <div id="thankyou"><b>Дякую тобі, що ти моя дівчина</b></div>
   <div class="flower">
     <div class="f-wrapper">
@@ -136,6 +180,25 @@
   </button>
 
   <script>
+    // Theme switching logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      let theme = document.documentElement.getAttribute('data-theme');
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
     document.addEventListener("click", function (e) {
       if (e.target.tagName === 'BUTTON') return;
 

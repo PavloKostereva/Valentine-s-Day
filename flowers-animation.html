@@ -7,6 +7,38 @@
     <title>Flowers Animation</title>
     <link rel="stylesheet" href="css/flowers-animation.css">
     <style>
+        :root {
+            --bg-color: transparent;
+            --btn-bg: #ffe3e1;
+            --btn-text: #e67373;
+        }
+
+        [data-theme="dark"] {
+            --btn-bg: #4a2c4a;
+            --btn-text: #ff8fa3;
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            line-height: 1;
+            border-radius: 50%;
+            border: none;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 2000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
         .interactive-heart-container {
             position: fixed;
             pointer-events: none;
@@ -53,6 +85,7 @@
 </head>
 
 <body>
+    <button id="theme-toggle">🌓</button>
     <div class="night"></div>
     <div class="hearts"></div>
     <div class="particles"></div>
@@ -214,6 +247,25 @@
     </div>
     <script>
         (function () {
+            // Theme switching logic
+            const themeToggle = document.getElementById('theme-toggle');
+            const currentTheme = localStorage.getItem('theme') || 'light';
+
+            if (currentTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                let theme = document.documentElement.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
             const heartsContainer = document.querySelector('.hearts');
             const particlesContainer = document.querySelector('.particles');
 
