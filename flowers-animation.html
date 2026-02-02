@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flowers Animation</title>
     <link rel="stylesheet" href="css/flowers-animation.css">
 </head>
+
 <body>
     <div class="night"></div>
+    <div class="hearts"></div>
+    <div class="particles"></div>
     <div class="flowers">
         <div class="flower flower--1">
             <div class="flower__line">
@@ -163,7 +167,41 @@
             <div class="leaf leaf--2"></div>
         </div>
     </div>
+    <script>
+        (function () {
+            const heartsContainer = document.querySelector('.hearts');
+            const particlesContainer = document.querySelector('.particles');
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                const duration = 5 + Math.random() * 5;
+                heart.style.animationDuration = duration + 's';
+                heart.style.opacity = 0.5 + Math.random() * 0.5;
+                heartsContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), duration * 1000);
+            }
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                const dx = (Math.random() - 0.5) * 200 + 'px';
+                const dy = (Math.random() - 1) * 200 + 'px';
+                particle.style.setProperty('--dx', dx);
+                particle.style.setProperty('--dy', dy);
+                const duration = 2 + Math.random() * 3;
+                particle.style.animationDuration = duration + 's';
+                particlesContainer.appendChild(particle);
+                setTimeout(() => particle.remove(), duration * 1000);
+            }
+
+            setInterval(createHeart, 300);
+            setInterval(createParticle, 100);
+        })();
+    </script>
 </body>
+
 </html>
-
-
