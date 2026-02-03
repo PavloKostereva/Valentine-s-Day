@@ -119,11 +119,104 @@
         opacity: 0;
       }
     }
+
+    .nav-btn {
+      position: fixed;
+      bottom: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--btn-bg);
+      border: 1px solid var(--btn-border);
+      color: var(--btn-text);
+      text-decoration: none;
+      border-radius: 50%;
+      backdrop-filter: blur(15px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 2000;
+    }
+
+    .nav-btn::after {
+      font-size: 24px;
+    }
+
+    .back-btn {
+      left: 30px;
+    }
+
+    .back-btn::after {
+      content: '←';
+    }
+
+    .next-btn {
+      right: 30px;
+    }
+
+    .next-btn::after {
+      content: '→';
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 77, 109, 0.3);
+      border-color: #ff4d6d;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .nav-btn {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+      }
+
+      .back-btn {
+        left: 20px;
+      }
+
+      .next-btn {
+        right: 20px;
+      }
+
+      .nav-btn::after {
+        font-size: 20px;
+      }
+
+      #theme-toggle {
+        top: 15px;
+        left: 15px;
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-btn {
+        width: 40px;
+        height: 40px;
+        bottom: 15px;
+      }
+
+      .back-btn {
+        left: 15px;
+      }
+
+      .next-btn {
+        right: 15px;
+      }
+
+      #theme-toggle {
+        top: 10px;
+        left: 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <button id="theme-toggle">🌓</button>
+  <a href="index.html" class="nav-btn back-btn" title="Назад"></a>
+  <a href="lastpage.html" class="nav-btn next-btn" title="Далі"></a>
   <div id="thankyou"><b class="heartbeat">Дякую</b></div>
 
   <img height="300px" id="rizz" src="thanks.png" alt="rizzler god" class="responsive" />
@@ -132,15 +225,11 @@
     <source src="congratulations.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
-  <br />
-  <button class="button" onclick="location.href='lastpage.html'">
-    Натисни мене
-  </button>
 
   <script>
     // Theme switching logic
     const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
 
     if (currentTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');

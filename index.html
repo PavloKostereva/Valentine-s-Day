@@ -98,6 +98,101 @@
         opacity: 0;
       }
     }
+
+    @media (max-width: 768px) {
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      #valentineQuestion {
+        font-size: 2rem;
+        order: 1;
+        margin-bottom: 20px;
+      }
+
+      img {
+        height: 350px;
+        width: auto;
+        order: 2;
+        margin-bottom: 20px;
+      }
+
+      .answerButton {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        order: 3;
+      }
+
+      #yesButton {
+        order: 3;
+      }
+
+      #noButton {
+        order: 4;
+      }
+
+      br {
+        display: none;
+      }
+
+      #theme-toggle {
+        top: 15px;
+        left: 15px;
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      #valentineQuestion {
+        font-size: 1.8rem;
+        order: 1;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      img {
+        height: 280px;
+        width: auto;
+        order: 2;
+        margin-bottom: 15px;
+      }
+
+      .answerButton {
+        font-size: 1rem;
+        padding: 10px 18px;
+        margin: 5px;
+      }
+
+      #yesButton {
+        order: 3;
+      }
+
+      #noButton {
+        order: 4;
+      }
+
+      br {
+        display: none;
+      }
+
+      #theme-toggle {
+        top: 10px;
+        left: 10px;
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 
@@ -113,7 +208,7 @@
   <script>
     // Theme switching logic
     const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
 
     if (currentTheme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
